@@ -5,12 +5,20 @@
 // 5 9 2 3
 // 8 4 2 4
 // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
-// int rows = ReadInt("Введите номер строки: ");
-// int colums = ReadInt("Введите номер столбца: ");
 
-int rows = 3;
-int colums = 4;
-int[,] numbers = new int[rows, colums];
+using System;
+using static System.Console;// эти 2 строчки заменяют Console. теперь на каждом вызове консоли можно не писать
+Clear();
+
+Write("Введите количество строк массива: ");
+int rows = int.Parse(ReadLine()!);
+
+Write("Введите количество столбцов массива: ");
+int columns = int.Parse(ReadLine()!);
+
+// int rows = 3;
+// int colums = 4;
+int[,] numbers = new int[rows, columns];
 FillArray2D(numbers);
 PrintArray2D(numbers);
 
@@ -25,8 +33,9 @@ for (int i = 0; i < numbers.GetLength(1); i++)
   }
   avgNumbers[i] = result / numbers.GetLength(0);
 }
+WriteLine();
+Write($"Среднее арифметическое каждого столбца: ");
 PrintArray(avgNumbers);
-
 
 // Заполнение массива рандомными вещественными числами
 void FillArray2D(int[,] array)
@@ -41,17 +50,16 @@ void FillArray2D(int[,] array)
 }
 
 //  Функция вывода двумерного массива в терминал
-void PrintArray2D(int[,] array)
+void PrintArray2D(int[,] inArray)// функция вывода 2-мерного массива в консоль
 {
-  for (int i = 0; i < array.GetLength(0); i++)
+  for (int i = 0; i < inArray.GetLength(0); i++)// первым циклом проходим по массивам
   {
-    for (int j = 0; j < array.GetLength(1); j++)
+    for (int j = 0; j < inArray.GetLength(1); j++)// второй проходит по элементам
     {
-      Console.Write(array[i, j] + " ");
+      Write($"{inArray[i, j]} ");// сначала записываем все элементы перврго массива, потом все элементы второго массива и т.д
     }
-    Console.WriteLine();
+    WriteLine();//переносим на новую строчку
   }
-  Console.WriteLine();
 }
 
 // Функция вывода массива в терминал 
@@ -59,7 +67,7 @@ void PrintArray(double[] array)
 {
   for (int i = 0; i < array.Length; i++)
   {
-    Console.Write(array[i] + " ");
+    Write($"{array[i]:f2} ");
   }
-  Console.WriteLine();
+  WriteLine();
 }

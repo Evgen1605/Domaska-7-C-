@@ -10,62 +10,67 @@
 
 // 17->такого числа в массиве нет
 
-Console.Clear();
+using System;
+using static System.Console;// эти 2 строчки заменяют Console. теперь на каждом вызове консоли можно не писать
 
-Console.Write("Введите количество строк массива: ");
-int rows = int.Parse(Console.ReadLine()!);
 
-Console.Write("Введите количество столбцов массива: ");
-int columns = int.Parse(Console.ReadLine()!);
+Clear();
 
-Console.Write("Введите значение элемента: ");
-int element = int.Parse(Console.ReadLine()!);
+Write("Введите количество строк массива: ");
+int rows = int.Parse(ReadLine()!);
+
+Write("Введите количество столбцов массива: ");
+int columns = int.Parse(ReadLine()!);
+
+Write("Введите значение элемента: ");
+int element = int.Parse(ReadLine()!);
 
 int[,] array = GetArray(rows, columns, 0, 10);
-PrintArray(array);
+PrintArray(array);// выводим в консоль рандомный 2-мерный массив
 
-if (FindElement(array, element))
+if (FindElement(array, element))// проверяем если действие функции FindElement вернёт true
 {
-  Console.WriteLine($"Элемент {element} найден");
+  WriteLine($"Элемент {element} найден");// то выводим в консоль
 }
 else
 {
-  Console.WriteLine($"{element} -> такого числа в массиве нет");
+  WriteLine($"{element} -> такого числа в массиве нет");// если вернёт false, выводим в консоль
 }
 
-int[,] GetArray(int m, int n, int minValue, int maxValue)
+int[,] GetArray(int m, int n, int minValue, int maxValue)// функция возвращает 2-мерный массив, на вход принимает 2 агумента, кол-во массивов(m) и кол-во элементов в каждом массиве(n)
 {
-  int[,] result = new int[m, n];
-  for (int i = 0; i < m; i++)
+  int[,] result = new int[m, n];// создали переменную в которую будем складывать кол-во массивов(m) и кол-во элементов в каждом массиве(n)
+  for (int i = 0; i < m; i++)// первым циклом проходим массивам
   {
-    for (int j = 0; j < n; j++)
+    for (int j = 0; j < n; j++)// второй цикл проходит по элементам массива
     {
-      result[i, j] = new Random().Next(minValue, maxValue + 1);
+      result[i, j] = new Random().Next(minValue, maxValue + 1);// обращаемся к каждому элементу массива и складывем рандомные числа
     }
   }
-  return result;
+  return result;// возвращаем реезультат
 }
 
-void PrintArray(int[,] inArray)
+
+void PrintArray(int[,] inArray)// функция вывода 2-мерного массива в консоль
 {
-  for (int i = 0; i < inArray.GetLength(0); i++)
+  for (int i = 0; i < inArray.GetLength(0); i++)// первым циклом проходим по массивам
   {
-    for (int j = 0; j < inArray.GetLength(1); j++)
+    for (int j = 0; j < inArray.GetLength(1); j++)// второй проходит по элементам
     {
-      Console.Write($"{inArray[i, j]} ");
+      Write($"{inArray[i, j]} ");// сначала записываем все элементы перврго массива, потом все элементы второго массива и т.д
     }
-    Console.WriteLine();
+    WriteLine();//переносим на новую строчку
   }
 }
 
-bool FindElement(int[,] array, int el)
+bool FindElement(int[,] array, int el)// функция возвращает либо true либо false на вход принимает 2-мерный массив и элемент
 {
-  for (int i = 0; i < array.GetLength(0); i++)
+  for (int i = 0; i < array.GetLength(0); i++)// первым циклом проходит по массивам
   {
-    for (int j = 0; j < array.GetLength(1); j++)
+    for (int j = 0; j < array.GetLength(1); j++)// второй проходит по элементам
     {
-      if (array[i, j] == el) return true;
+      if (array[i, j] == el) return true;// проверяем есть ли элемент в массиве, если да то возвращаем 
     }
   }
-  return false;
+  return false;// возвращаем если нету элемента
 }
